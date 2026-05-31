@@ -1323,6 +1323,7 @@ body::after {
     <div class="form-row">
       <label class="form-label">Mật khẩu</label>
       <input type="password" class="form-input" id="pwdInput" placeholder="Nhập mật khẩu..."
+        inputmode="numeric" pattern="[0-9]*"
         onkeydown="if(event.key==='Enter')doLogin()">
       <div class="form-error" id="pwdError">Mật khẩu không đúng. Thử lại.</div>
     </div>
@@ -1520,7 +1521,7 @@ insert into qc_product_lines (name, sort_order) values
 const SB_URL  = 'https://reuimyzvogsaeyiewqpw.supabase.co';
 const SB_KEY  = 'sb_publishable_fpNOoHxKkhDryfHPeNZe8Q_cbbokJ4c';
 const BUCKET  = 'qc-images';
-const PASS    = 'SGW@2026'; // ← đổi mật khẩu tại đây
+const PASS    = '190396'; // ← đổi mật khẩu tại đây
 
 /* ── SUPABASE REST (no SDK needed) ───────────────────────────── */
 const H = {
