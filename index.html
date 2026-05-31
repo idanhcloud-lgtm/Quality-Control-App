@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SGW - Hệ thống Báo cáo Sự cố Chất lượng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1247,18 +1247,34 @@ table.report-table {
 
 @media (max-width: 640px) {
   /* === HEADER COMPACT === */
-  .app-header { padding: 10px 14px; }
-  .header-inner { gap: 8px; flex-wrap: wrap; align-items: center; }
-  .logo-block { flex: 1 1 auto; min-width: 0; overflow: hidden; gap: 10px; }
-  .logo-mark { height: 38px !important; }
-  .header-logo-img { height: 34px !important; }
-  .logo-text h1 { font-size: 13px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .app-header { padding: 8px 13px; }
+  .header-inner { gap: 7px; flex-wrap: nowrap; align-items: center; }
+  .logo-block { flex: 1 1 auto; min-width: 0; overflow: hidden; gap: 8px; }
+  .logo-mark { width: 34px !important; height: 34px !important; font-size: 15px !important; border-radius: 8px !important; }
+  .header-logo-img { height: 30px !important; }
+  .logo-text h1 { font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .logo-text p { display: none; }
-  .header-meta { gap: 6px; flex-shrink: 0; }
+  .header-meta { gap: 5px; flex-shrink: 0; }
   #current-date { display: none; }
-  .btn-home { padding: 6px 10px; font-size: 11px; gap: 4px; }
-  .btn-home svg { width: 14px; height: 14px; }
-  #cloud-status { font-size: 11px; padding: 4px 8px; }
+  .btn-home { padding: 5px 9px; font-size: 11px; gap: 3px; }
+  .btn-home svg { width: 13px; height: 13px; }
+  #cloud-status { font-size: 10.5px; padding: 4px 8px; }
+
+  /* === TABS BAR === */
+  .tabs-bar { padding: 0 11px; overflow-x: auto; scrollbar-width: none; gap: 2px; }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+  .tab-btn { padding: 10px 14px; font-size: 12.5px; gap: 5px; white-space: nowrap; flex-shrink: 0; }
+  .tab-btn svg { width: 15px; height: 15px; }
+  .tab-badge { font-size: 10px; padding: 1px 6px; }
+
+  /* === CONTAINER === */
+  .container { padding: 14px 11px 56px; }
+
+  /* === FILTER BAR === */
+  .dash-filter-bar { padding: 10px 12px; gap: 8px; border-radius: 11px; }
+  .period-btn { padding: 5px 11px; font-size: 12px; }
+  .dash-search-wrap { min-width: 0; max-width: 100%; }
+  .dash-filter-label { font-size: 10.5px; }
 
   /* === REPORTS TABLE → CARD LAYOUT === */
   .report-table-wrap { background: transparent; border: none; box-shadow: none; overflow: visible; }
@@ -1270,26 +1286,29 @@ table.report-table {
     background: white;
     border: 1px solid var(--gray-200);
     border-radius: 12px;
-    margin-bottom: 10px;
-    padding: 12px 12px 52px;
+    margin-bottom: 9px;
+    padding: 11px 11px 48px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     position: relative;
   }
   .report-table-wrap .report-table tr:hover td { background: transparent; }
-  .report-table-wrap .report-table td { display: block; border: none; padding: 2px 0; font-size: 13px; color: var(--gray-700); }
-  .report-table-wrap .report-table td:nth-child(1) { margin-bottom: 4px; }
-  .report-table-wrap .report-table td:nth-child(2) { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .report-table-wrap .report-table td { display: block; border: none; padding: 2px 0; font-size: 12.5px; color: var(--gray-700); }
+  .report-table-wrap .report-table td:nth-child(1) { margin-bottom: 3px; }
+  .report-table-wrap .report-table td:nth-child(2) { font-size: 13.5px; font-weight: 700; margin-bottom: 5px; }
   .report-table-wrap .report-table td:nth-child(3) { display: none; }
   .report-table-wrap .report-table td:nth-child(4) { display: none; }
-  .report-table-wrap .report-table td:nth-child(5) { font-size: 12px; color: var(--gray-500); }
-  .report-table-wrap .report-table td:nth-child(6) { font-size: 12px; color: var(--gray-500); }
-  .report-table-wrap .report-table td:nth-child(7) { margin-top: 6px; }
-  .report-table-wrap .report-table td:nth-child(8) { position: absolute; bottom: 10px; right: 10px; padding: 0; }
+  .report-table-wrap .report-table td:nth-child(5) { font-size: 11.5px; color: var(--gray-500); }
+  .report-table-wrap .report-table td:nth-child(6) { font-size: 11.5px; color: var(--gray-500); }
+  .report-table-wrap .report-table td:nth-child(7) { margin-top: 5px; }
+  .report-table-wrap .report-table td:nth-child(8) { position: absolute; bottom: 9px; right: 10px; padding: 0; }
   .report-table-wrap .report-table td:last-child { border-bottom: none; }
+
+  /* === DASHBOARD STATS GRID === */
+  .dash-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 9px; }
 
   /* === DASHBOARD RECENT TABLE (scroll ngang) === */
   #recent-reports-list { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  #recent-reports-list .report-table { min-width: 480px; }
+  #recent-reports-list .report-table { min-width: 460px; }
 }
 
 /* ===== HOMEPAGE ===== */
@@ -1451,7 +1470,26 @@ table.report-table {
   .home-cards-section { padding: 20px 20px 40px; }
 }
 @media (max-width: 580px) {
-  .home-cards-grid { grid-template-columns: 1fr; }
+  .home-cards-grid { grid-template-columns: 1fr; gap: 12px; }
+  .home-hero { padding: 24px 16px 20px; }
+  .home-hero h1 { font-size: 19px; }
+  .home-hero .sub { font-size: 13px; }
+  .home-logo-img { height: 80px; }
+  .home-logo-wrap { margin-bottom: 16px; }
+  .home-divider { margin-top: 12px; }
+  .home-cards-section { padding: 14px 14px 48px; }
+  .home-section-label { font-size: 10.5px; margin-bottom: 12px; }
+  .home-topbar { padding: 10px 16px; }
+  .home-topbar-logo { height: 32px; }
+  .home-topbar-right { display: none; }
+  .home-topbar-meta { font-size: 11px; }
+  .home-card { padding: 16px; border-radius: 14px; }
+  .home-card-icon { width: 40px; height: 40px; border-radius: 11px; margin-bottom: 11px; }
+  .home-card-icon svg { width: 20px; height: 20px; }
+  .home-card-title { font-size: 13.5px; margin-bottom: 4px; }
+  .home-card-desc { font-size: 12px; margin-bottom: 12px; }
+  .home-card-badge { font-size: 10.5px; padding: 3px 8px; }
+  .home-page-footer { padding: 13px 14px; font-size: 11px; }
 }
 
 /* ===== AI CHAT ===== */
