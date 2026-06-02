@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SGW – Hướng Dẫn Kiểm Tra Chất Lượng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,7 @@
    RESET & ROOT
 ================================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; touch-action: manipulation; }
-body { touch-action: manipulation; }
+html { scroll-behavior: smooth; }
 
 :root {
   --g: #16a34a;
@@ -463,7 +462,7 @@ body::after {
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 20px;
   min-height: 320px;
-  align-items: stretch;
+  align-items: start;
 }
 .qc-grid.fading { opacity: 0; transition: opacity 0.12s ease; }
 .qc-grid.visible { opacity: 1; transition: opacity 0.18s ease; }
@@ -478,8 +477,6 @@ body::after {
   border: 1px solid var(--glass-border);
   border-radius: var(--r-xl);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   box-shadow: var(--sh);
   transition: box-shadow 0.25s, transform 0.25s;
 }
@@ -521,7 +518,6 @@ body::after {
 .qc-imgs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  flex: 1;
 }
 .img-slot {
   position: relative;
@@ -1161,201 +1157,98 @@ body::after {
 .ann-hint { font-size: 11.5px; color: var(--gray-400); flex: 1; line-height: 1.4; }
 
 /* ================================================================
+   GROUP HEADERS
+================================================================ */
+.group-hdr {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0 2px;
+  cursor: pointer;
+  user-select: none;
+}
+.group-hdr-line {
+  flex: 1;
+  height: 1.5px;
+  background: var(--gray-200);
+}
+.group-hdr-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--g);
+  white-space: nowrap;
+  letter-spacing: .02em;
+}
+.group-hdr-count {
+  font-size: 11px;
+  color: var(--gray-400);
+  white-space: nowrap;
+  font-weight: 600;
+}
+.group-hdr-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gray-400);
+  padding: 2px 4px;
+  transition: transform .2s;
+  line-height: 1;
+  font-family: inherit;
+}
+.group-hdr-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+.group-hdr-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+body:not(.admin-mode) .group-hdr-actions {
+  display: none;
+}
+.qc-card.grp-hidden {
+  display: none;
+}
+.btn-grp-add {
+  display: none;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 11px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px dashed var(--gray-300);
+  background: transparent;
+  color: var(--gray-400);
+  transition: all 0.16s;
+  font-family: inherit;
+  white-space: nowrap;
+  width: 100%;
+}
+.btn-grp-add:hover { border-color: var(--g); color: var(--g); background: var(--g-soft); }
+.admin-mode .btn-grp-add { display: flex; }
+
+/* ================================================================
    RESPONSIVE
 ================================================================ */
-/* ================================================================
-   DRAG & DROP REORDER (admin only)
-================================================================ */
-.qc-drag-handle {
-  display: none;
-  cursor: grab;
-  color: var(--gray-300);
-  padding: 2px 6px 2px 0;
-  align-items: center;
-  flex-shrink: 0;
-  transition: color .15s;
-}
-.qc-drag-handle:hover { color: var(--gray-500); }
-.qc-drag-handle:active { cursor: grabbing; }
-.admin-mode .qc-drag-handle { display: flex; }
-
-.qc-card.qc-dragging {
-  opacity: .35;
-  transform: scale(.98);
-  border: 2px dashed var(--g) !important;
-  box-shadow: none !important;
-}
-.qc-card.qc-drag-over {
-  outline: 2.5px solid var(--g);
-  outline-offset: 3px;
-  background: rgba(22,163,74,.04);
-}
-
-/* ================================================================
-   MOBILE — Giao diện app di động (≤ 768px)
-   Desktop (> 768px) giữ nguyên hoàn toàn
-================================================================ */
 @media (max-width: 768px) {
-
-  /* --- Header compact --- */
-  .header-inner  { padding: 8px 14px; gap: 8px; }
-  .header-logo   { height: 28px; }
-  .header-brand-text h1 { font-size: 12.5px; }
-  .header-brand-text p  { display: none; }
-  .header-sep           { display: none; }
-  .header-page-title    { display: none; }
-  .btn-home  { padding: 5px 11px; font-size: 11.5px; }
-  .btn-admin { padding: 5px 11px; font-size: 11.5px; }
-
-  /* --- Main padding --- */
-  .main { padding: 10px 11px 76px; }
-
-  /* --- Admin bar --- */
-  .admin-bar { padding: 8px 11px; font-size: 12px; margin-bottom: 10px; }
-
-  /* --- Section label --- */
-  .section-eyebrow { font-size: 10px; margin-bottom: 7px; }
-
-  /* --- PL tabs: cuộn ngang, không wrap --- */
-  .pl-bar {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 6px;
-    margin-bottom: 10px;
-    padding-bottom: 2px;
-  }
-  .pl-bar::-webkit-scrollbar { display: none; }
-  .pl-tab         { padding: 6px 13px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
-  .pl-chip        { flex-shrink: 0; }
-  .btn-pl-add     { flex-shrink: 0; font-size: 12px; padding: 6px 13px; }
-
-  /* --- PL hero: gọn --- */
-  .pl-hero {
-    padding: 10px 13px;
-    margin-bottom: 10px;
-    min-height: auto;
-    border-radius: var(--r-lg);
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-  }
-  .pl-hero-name    { font-size: 13.5px; }
-  .pl-hero-sub     { font-size: 11px; margin-top: 1px; }
-  .pl-badge        { font-size: 10.5px; padding: 3px 9px; }
-  .pl-hero-right   { gap: 5px; }
-  .btn-edit-pl, .btn-del-pl { padding: 4px 8px; font-size: 11px; }
-
-  /* --- Stage bar: compact --- */
-  .stage-bar-wrap { padding: 4px; margin-bottom: 10px; min-height: 38px; border-radius: var(--r); }
-  .stage-tab      { padding: 5px 12px; font-size: 12px; border-radius: 9px; }
-  .btn-stage-add  { font-size: 12px; padding: 5px 12px; }
-
-  /* --- QC grid: 1 cột --- */
-  .qc-grid {
-    grid-template-columns: 1fr;
-    gap: 9px;
-    min-height: auto;
-  }
-
-  /* --- QC card: gọn --- */
-  .qc-card          { border-radius: var(--r-lg); }
-  .qc-card-head     { padding: 10px 12px 9px; gap: 8px; }
-  .qc-title         { font-size: 12.5px; line-height: 1.4; }
-  .qc-num           { width: 22px; height: 22px; font-size: 10.5px; border-radius: 7px; }
-  .img-slot         { aspect-ratio: 3/2; }
-  .img-badge        { font-size: 9.5px; padding: 3px 7px; }
-  .qc-body          { padding: 7px 12px 9px; }
-  .qc-desc          { font-size: 11.5px; }
-  .qc-admin-row     { padding: 6px 10px; gap: 5px; }
-  .qc-card-add      { min-height: 76px; font-size: 12.5px; border-radius: var(--r-lg); }
-
-  /* --- Card detail: bottom sheet toàn màn hình --- */
-  .cdm-overlay {
-    padding: 0;
-    align-items: flex-end;
-  }
-  .cdm-modal {
-    width: 100%;
-    max-width: 100%;
-    max-height: 96vh;
-    border-radius: var(--r-xl) var(--r-xl) 0 0;
-    animation: sheetUp .25s ease;
-  }
-  .cdm-header          { padding: 12px 15px 9px; }
-  .cdm-title           { font-size: 13px; }
-  .cdm-close           { width: 27px; height: 27px; font-size: 13px; }
-
-  /* Ảnh xếp dọc, scroll được, không bị crop */
-  .cdm-images {
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-    max-height: calc(96vh - 108px);
-  }
-  .cdm-panel:first-child { border-right: none; border-bottom: 2px solid rgba(255,255,255,.65); }
-
-  /* Hiện toàn bộ ảnh, không mất viền — object-fit contain */
-  .zoom-wrap {
-    min-height: 0;
-    aspect-ratio: 4/3;
-  }
-  .zoom-wrap img {
-    object-fit: contain !important;
-    background: #1a1a1a;
-  }
-
-  .cdm-img-badge       { font-size: 11px; padding: 5px 10px; }
-  .cdm-footer          { padding: 8px 14px 14px; flex-wrap: wrap; gap: 7px; }
-  .cdm-footer-desc     { font-size: 11.5px; width: 100%; }
-  .cdm-reset-btn       { font-size: 11.5px; }
-
-  /* --- Overlay modals: bottom sheet --- */
-  .overlay {
-    padding: 0;
-    align-items: flex-end;
-  }
-  .modal {
-    border-radius: var(--r-xl) var(--r-xl) 0 0;
-    max-width: 100%;
-    max-height: 87vh;
-    overflow-y: auto;
-    padding: 20px 17px 38px;
-    animation: sheetUp .25s ease;
-  }
-  .modal-title   { font-size: 16px; }
-  .modal-sub     { font-size: 12px; margin-bottom: 16px; }
-  /* 16px ngăn iOS auto-zoom khi focus input */
-  .form-input, .form-textarea { font-size: 16px; }
-  .modal-actions { margin-top: 14px; }
-
-  /* --- Toast --- */
-  .toast-wrap { bottom: 76px; right: 11px; left: 11px; align-items: center; }
-  .toast      { text-align: center; width: 100%; max-width: 100%; }
-
-  /* --- No content --- */
-  .no-content    { padding: 44px 14px; }
-  .no-content h2 { font-size: 15px; }
-  .no-content p  { font-size: 12.5px; }
+  .main { padding: 18px 16px 60px; }
+  .header-inner { padding: 9px 16px; }
+  .header-page-title { display: none; }
+  .header-sep { display: none; }
+  .qc-grid { grid-template-columns: 1fr; }
+  .pl-hero { flex-direction: column; align-items: flex-start; }
+  .modal { padding: 24px 18px; }
+  .qc-card { border-radius: var(--r-lg); }
 }
-
-/* ================================================================
-   MOBILE NHỎ — ≤ 480px
-================================================================ */
 @media (max-width: 480px) {
-  .btn-home span       { display: none; }
-  .btn-home            { padding: 5px 9px; }
-  .header-logo         { height: 24px; }
-  .header-brand-text h1 { font-size: 12px; }
-
-  .pl-hero { gap: 7px; }
-  .pl-hero-name { font-size: 12.5px; }
-  .pl-badge, .btn-edit-pl, .btn-del-pl { display: none; }
-}
-
-@keyframes sheetUp {
-  from { transform: translateY(30px); opacity: .6; }
-  to   { transform: translateY(0);    opacity: 1;  }
+  .header-brand-text p { display: none; }
+  .btn-home span { display: none; }
 }
 </style>
 </head>
@@ -1367,7 +1260,7 @@ body::after {
 ================================================================ -->
 <header class="header">
   <div class="header-inner">
-    <a class="header-brand" href="index.html">
+    <a class="header-brand" href="qc-report-app.html">
       <img src="LOGO-SGW-nobg.png" alt="SGW Logo" class="header-logo">
       <div class="header-brand-text">
         <h1>Saigon Wicker</h1>
@@ -1377,7 +1270,7 @@ body::after {
     <div class="header-sep"></div>
     <span class="header-page-title">Hướng Dẫn Kiểm Tra Chất Lượng</span>
     <div class="header-actions">
-      <a class="btn-home" href="index.html">
+      <a class="btn-home" href="qc-report-app.html">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Trang chủ</span>
       </a>
@@ -1398,6 +1291,9 @@ body::after {
   <div class="admin-bar">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     Chế độ Admin — thêm, sửa, xóa nội dung tự do
+    <button class="btn btn-sm btn-secondary" style="margin-left:auto;font-size:11.5px" onclick="openSetup()">
+      📋 Hướng dẫn cài đặt DB
+    </button>
   </div>
 
   <!-- No content state -->
@@ -1472,11 +1368,11 @@ body::after {
     <div class="cdm-images">
       <div class="cdm-panel">
         <div class="zoom-wrap" id="cdmGoWrap"></div>
-        <div class="cdm-img-badge cdm-go-badge">✓ Đạt</div>
+        <div class="cdm-img-badge cdm-go-badge">✓ ĐẠT (GO)</div>
       </div>
       <div class="cdm-panel">
         <div class="zoom-wrap" id="cdmNogoWrap"></div>
-        <div class="cdm-img-badge cdm-nogo-badge">✗ Không Đạt</div>
+        <div class="cdm-img-badge cdm-nogo-badge">✗ KHÔNG ĐẠT (NO GO)</div>
       </div>
     </div>
     <div class="cdm-footer" id="cdmFooter">
@@ -1504,7 +1400,6 @@ body::after {
     <div class="form-row">
       <label class="form-label">Mật khẩu</label>
       <input type="password" class="form-input" id="pwdInput" placeholder="Nhập mật khẩu..."
-        inputmode="numeric" pattern="[0-9]*"
         onkeydown="if(event.key==='Enter')doLogin()">
       <div class="form-error" id="pwdError">Mật khẩu không đúng. Thử lại.</div>
     </div>
@@ -1564,6 +1459,12 @@ body::after {
       <label class="form-label">Mô tả thêm (không bắt buộc)</label>
       <textarea class="form-textarea" id="qcDescIn" placeholder="Tiêu chí chi tiết, kích thước cho phép..."></textarea>
     </div>
+    <div class="form-row" id="qcGroupRow">
+      <label class="form-label">Nhóm</label>
+      <select class="form-input" id="qcGroupIn" style="cursor:pointer">
+        <option value="">— Không có nhóm —</option>
+      </select>
+    </div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeOverlay('ovAddQC')">Hủy</button>
       <button class="btn btn-primary" id="saveQCBtn" onclick="saveQC()">Thêm</button>
@@ -1618,7 +1519,20 @@ create policy "write_all" on qc_stages for all using (true) with check (true);
 create policy "read_all" on qc_points for select using (true);
 create policy "write_all" on qc_points for all using (true) with check (true);
 
--- ③ DỮ LIỆU MẪU (chạy sau khi tạo bảng)
+-- ③ BẢNG NHÓM (Groups)
+create table if not exists qc_groups (
+  id uuid default gen_random_uuid() primary key,
+  stage_id uuid references qc_stages(id) on delete cascade,
+  name text not null,
+  sort_order int default 0,
+  created_at timestamptz default now()
+);
+alter table qc_points add column if not exists group_id uuid references qc_groups(id) on delete set null;
+alter table qc_groups enable row level security;
+create policy "read_all" on qc_groups for select using (true);
+create policy "write_all" on qc_groups for all using (true) with check (true);
+
+-- ④ DỮ LIỆU MẪU (chạy sau khi tạo bảng)
 insert into qc_product_lines (name, sort_order) values
   ('CARVER + STACKING', 1),
   ('TABLE', 2);</div>
@@ -1632,6 +1546,24 @@ insert into qc_product_lines (name, sort_order) values
 
     <div class="modal-actions" style="margin-top:20px">
       <button class="btn btn-primary" onclick="closeOverlay('ovSetup')">Đã hiểu, đóng</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Group -->
+<div class="overlay" id="ovAddGroup">
+  <div class="modal">
+    <div class="modal-title" id="grpModalTitle">➕ Thêm Nhóm</div>
+    <div class="modal-sub">Nhóm các điểm kiểm tra liên quan lại với nhau</div>
+    <input type="hidden" id="grpEditId">
+    <div class="form-row">
+      <label class="form-label">Tên nhóm <span style="color:var(--red)">*</span></label>
+      <input type="text" class="form-input" id="grpNameIn" placeholder="VD: Kiểm tra khung, Kiểm tra lưới..."
+        onkeydown="if(event.key==='Enter')saveGroup()">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeOverlay('ovAddGroup')">Hủy</button>
+      <button class="btn btn-primary" id="grpSaveBtn" onclick="saveGroup()">Thêm</button>
     </div>
   </div>
 </div>
@@ -1699,8 +1631,8 @@ insert into qc_product_lines (name, sort_order) values
 ================================================================ -->
 <script>
 /* ── CONFIG ─────────────────────────────────────────────────── */
-const SB_URL  = 'https://reuimyzvogsaeyiewqpw.supabase.co';
-const SB_KEY  = 'sb_publishable_fpNOoHxKkhDryfHPeNZe8Q_cbbokJ4c';
+const SB_URL  = 'https://vaqcutkhcpuulqdauiik.supabase.co';
+const SB_KEY  = 'sb_publishable_7uX2YsoIlcT3OypUuPKT1w_H8xugeWu';
 const BUCKET  = 'qc-images';
 const PASS    = '190396'; // ← đổi mật khẩu tại đây
 
@@ -1755,6 +1687,7 @@ const S = {
   curPL: null,
   stages: [],
   curStage: null,
+  groups: [],    // qc groups for current stage
   qps: [],       // qc points
   imgTarget: null // { qpId, type:'go'|'nogo' }
 };
@@ -1889,10 +1822,18 @@ async function selectStage(stageId) {
 /* ── QC POINTS ──────────────────────────────────────────────── */
 async function loadQC(stageId) {
   setGridLoading();
+  // Groups: load riêng — nếu bảng chưa tạo trong DB thì bỏ qua, không block points
   try {
-    const data = await sbGet('qc_points', `select=*&stage_id=eq.${stageId}&order=sort_order`);
-    S.qps = data || [];
+    const gData = await sbGet('qc_groups', `select=*&stage_id=eq.${stageId}&order=sort_order`);
+    S.groups = gData || [];
+  } catch(e) { S.groups = []; }
+
+  // Points: bắt buộc phải có
+  try {
+    const pData = await sbGet('qc_points', `select=*&stage_id=eq.${stageId}&order=sort_order`);
+    S.qps = pData || [];
   } catch(e) { toast('Lỗi tải điểm kiểm tra', 'error'); return; }
+
   renderQC(S.qps);
   document.getElementById('plBadge').textContent = `${S.qps.length} điểm kiểm tra`;
 }
@@ -1911,18 +1852,63 @@ function renderQC(points) {
 function _renderQCContent(points, grid) {
   grid.innerHTML = '';
 
-  if (!points.length) {
+  if (!points.length && !S.admin) {
     const msg = document.createElement('div');
     msg.className = 'state-center';
-    msg.innerHTML = S.admin
-      ? `<div style="font-size:36px">👆</div><h3>Bấm "+" để thêm điểm kiểm tra</h3>`
-      : `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" style="opacity:.25;margin:0 auto"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg><h3>Chưa có điểm kiểm tra</h3><p>Admin cần thêm nội dung cho công đoạn này</p>`;
+    msg.innerHTML = `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" style="opacity:.25;margin:0 auto"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg><h3>Chưa có điểm kiểm tra</h3><p>Admin cần thêm nội dung cho công đoạn này</p>`;
     grid.appendChild(msg);
   }
 
-  points.forEach((pt, idx) => grid.appendChild(makeCard(pt, idx + 1)));
+  if (S.groups.length > 0) {
+    // Grouped rendering
+    let globalIdx = 0;
 
-  // Add card (admin)
+    S.groups.forEach(grp => {
+      const grpPts = points.filter(p => p.group_id === grp.id);
+      if (!grpPts.length && !S.admin) return;
+      grid.appendChild(_makeGroupHdr(grp, grpPts.length));
+      grpPts.forEach(pt => {
+        const card = makeCard(pt, ++globalIdx);
+        card.dataset.grpId = grp.id;
+        grid.appendChild(card);
+      });
+    });
+
+    const ungrouped = points.filter(p => !p.group_id);
+    if (ungrouped.length) {
+      grid.appendChild(_makeGroupHdr({ id: '__none', name: 'Chưa phân nhóm' }, ungrouped.length, true));
+      ungrouped.forEach(pt => grid.appendChild(makeCard(pt, ++globalIdx)));
+    }
+
+    // Add group button (admin)
+    if (S.admin && S.curStage) {
+      const addGrp = document.createElement('button');
+      addGrp.className = 'btn-grp-add';
+      addGrp.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Thêm nhóm`;
+      addGrp.onclick = () => openAddGroup();
+      grid.appendChild(addGrp);
+    }
+  } else {
+    // Flat rendering (no groups) — original behavior
+    if (!points.length && S.admin) {
+      const msg = document.createElement('div');
+      msg.className = 'state-center';
+      msg.innerHTML = `<div style="font-size:36px">👆</div><h3>Bấm "+" để thêm điểm kiểm tra</h3>`;
+      grid.appendChild(msg);
+    }
+    points.forEach((pt, idx) => grid.appendChild(makeCard(pt, idx + 1)));
+
+    // Nút thêm nhóm — hiện trong flat view để admin có thể tạo nhóm đầu tiên
+    if (S.admin && S.curStage) {
+      const addGrp = document.createElement('button');
+      addGrp.className = 'btn-grp-add';
+      addGrp.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Thêm nhóm cho công đoạn này`;
+      addGrp.onclick = () => openAddGroup();
+      grid.appendChild(addGrp);
+    }
+  }
+
+  // Add QC card (admin)
   if (S.admin && S.curStage) {
     const addCard = document.createElement('div');
     addCard.className = 'qc-card-add';
@@ -1936,18 +1922,11 @@ function makeCard(pt, num) {
   const card = document.createElement('div');
   card.className = 'qc-card';
 
-  const goSlot   = makeImgSlot(pt, 'go');
+  const goSlot  = makeImgSlot(pt, 'go');
   const nogoSlot = makeImgSlot(pt, 'nogo');
 
   card.innerHTML = `
     <div class="qc-card-head">
-      <div class="qc-drag-handle" title="Kéo để sắp xếp lại">
-        <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor">
-          <circle cx="2.5" cy="2"   r="1.4"/><circle cx="7.5" cy="2"   r="1.4"/>
-          <circle cx="2.5" cy="7"   r="1.4"/><circle cx="7.5" cy="7"   r="1.4"/>
-          <circle cx="2.5" cy="12"  r="1.4"/><circle cx="7.5" cy="12"  r="1.4"/>
-        </svg>
-      </div>
       <div class="qc-title">${esc(pt.title)}</div>
       <div class="qc-num">${num}</div>
     </div>
@@ -1961,13 +1940,6 @@ function makeCard(pt, num) {
   card.querySelector('.qc-imgs').appendChild(goSlot);
   card.querySelector('.qc-imgs').appendChild(nogoSlot);
   card.onclick = () => { if (!S.admin) openCardDetail(pt); };
-
-  // Drag-and-drop reorder — admin only
-  if (S.admin) {
-    card.draggable = true;
-    _attachCardDnd(card);
-  }
-
   return card;
 }
 
@@ -1976,7 +1948,7 @@ function makeImgSlot(pt, type) {
   slot.className = 'img-slot';
 
   const url = type === 'go' ? pt.go_image_url : pt.nogo_image_url;
-  const label = type === 'go' ? '✓ Đạt' : '✗ Không Đạt';
+  const label = type === 'go' ? '✓ ĐẠT (GO)' : '✗ KHÔNG ĐẠT (NO GO)';
   const badgeClass = type === 'go' ? 'badge-go' : 'badge-nogo';
 
   if (url) {
@@ -2055,8 +2027,6 @@ function doLogin() {
     closeOverlay('ovAdminLogin');
     document.getElementById('pwdInput').value = '';
     err.classList.remove('show');
-    // Nếu chưa có dòng sản phẩm, hiện thanh để admin thêm được
-    if (!S.pls.length) document.getElementById('plSection').style.display = 'block';
     renderPLBar();
     renderStageBar();
     renderQC(S.qps);
@@ -2087,6 +2057,7 @@ function openModal(type) {
     document.getElementById('qcTitleIn').value = '';
     document.getElementById('qcDescIn').value = '';
     document.getElementById('saveQCBtn').textContent = 'Thêm';
+    _populateGroupSelect('qcGroupIn');
     openOverlay('ovAddQC');
     setTimeout(() => document.getElementById('qcTitleIn').focus(), 80);
   }
@@ -2185,6 +2156,7 @@ async function confirmDelStage(id, name) {
 async function saveQC() {
   const title = document.getElementById('qcTitleIn').value.trim();
   const desc  = document.getElementById('qcDescIn').value.trim();
+  const groupId = document.getElementById('qcGroupIn')?.value || null;
   if (!title) { toast('Vui lòng nhập tiêu đề', 'error'); return; }
   if (!S.curStage) { toast('Chưa chọn công đoạn', 'error'); return; }
   const btn = document.getElementById('saveQCBtn');
@@ -2192,11 +2164,13 @@ async function saveQC() {
   btn.disabled = true; btn.textContent = 'Đang lưu...';
   try {
     if (editId) {
-      await sbPatch('qc_points', editId, { title, description: desc });
+      await sbPatch('qc_points', editId, { title, description: desc, group_id: groupId || null });
       toast('Đã cập nhật điểm kiểm tra', 'success');
     } else {
       const maxOrd = S.qps.reduce((m, p) => Math.max(m, p.sort_order || 0), 0);
-      await sbPost('qc_points', { title, description: desc, stage_id: S.curStage, sort_order: maxOrd + 1 });
+      const payload = { title, description: desc, stage_id: S.curStage, sort_order: maxOrd + 1 };
+      if (groupId) payload.group_id = groupId;
+      await sbPost('qc_points', payload);
       toast('Đã thêm điểm kiểm tra ✓', 'success');
     }
   } catch(e) { toast('Lỗi: ' + e.message, 'error'); }
@@ -2213,6 +2187,9 @@ function openEditQC(id) {
   document.getElementById('qcTitleIn').value = pt.title;
   document.getElementById('qcDescIn').value = pt.description || '';
   document.getElementById('saveQCBtn').textContent = 'Lưu';
+  _populateGroupSelect('qcGroupIn');
+  const sel = document.getElementById('qcGroupIn');
+  if (sel) sel.value = pt.group_id || '';
   openOverlay('ovAddQC');
   setTimeout(() => document.getElementById('qcTitleIn').focus(), 80);
 }
@@ -2287,8 +2264,7 @@ function showEmpty(title, sub) {
   document.getElementById('noContent').style.display = 'block';
   document.getElementById('noContentTitle').textContent = title;
   document.getElementById('noContentSub').textContent = sub;
-  // Admin vẫn thấy thanh "+ Thêm dòng" để có thể thêm dữ liệu
-  if (!S.admin) document.getElementById('plSection').style.display = 'none';
+  document.getElementById('plSection').style.display = 'none';
 }
 function hideEmpty() {
   document.getElementById('noContent').style.display = 'none';
@@ -2309,6 +2285,98 @@ function toast(msg, type = 'info') {
 /* ── UTILS ──────────────────────────────────────────────────── */
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── GROUP HELPERS ──────────────────────────────────────────── */
+function _makeGroupHdr(grp, count, isNone = false) {
+  const hdr = document.createElement('div');
+  hdr.className = 'group-hdr';
+  hdr.dataset.grpId = grp.id;
+  const nameStyle = isNone ? ' style="color:var(--gray-400);font-weight:600"' : '';
+  hdr.innerHTML = `
+    <div class="group-hdr-line"></div>
+    <span class="group-hdr-name"${nameStyle}>${esc(grp.name)}</span>
+    <span class="group-hdr-count">${count} điểm</span>
+    <div class="group-hdr-line"></div>
+    <button class="group-hdr-toggle" title="Thu gọn / Mở rộng">▾</button>
+    ${!isNone && S.admin ? `<div class="group-hdr-actions">
+      <button class="btn btn-sm btn-secondary" style="padding:3px 8px;font-size:11px" onclick="editGroup('${grp.id}');event.stopPropagation()">✏️</button>
+      <button class="btn btn-sm btn-danger" style="padding:3px 8px;font-size:11px" onclick="confirmDelGroup('${grp.id}','${esc(grp.name)}');event.stopPropagation()">🗑</button>
+    </div>` : ''}
+  `;
+  hdr.addEventListener('click', () => toggleGroup(grp.id));
+  return hdr;
+}
+
+function toggleGroup(grpId) {
+  const hdr = document.querySelector(`.group-hdr[data-grp-id="${grpId}"]`);
+  const btn = hdr?.querySelector('.group-hdr-toggle');
+  const cards = document.querySelectorAll(`.qc-card[data-grp-id="${grpId}"]`);
+  if (!btn) return;
+  const nowCollapsed = btn.classList.toggle('collapsed');
+  cards.forEach(c => c.classList.toggle('grp-hidden', nowCollapsed));
+}
+
+function _populateGroupSelect(elId) {
+  const sel = document.getElementById(elId);
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Không có nhóm —</option>';
+  S.groups.forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g.id; opt.textContent = g.name;
+    sel.appendChild(opt);
+  });
+}
+
+/* ── GROUP CRUD ── */
+function openAddGroup() {
+  if (!S.curStage) { toast('Chưa chọn công đoạn', 'error'); return; }
+  document.getElementById('grpEditId').value = '';
+  document.getElementById('grpNameIn').value = '';
+  document.getElementById('grpModalTitle').textContent = '➕ Thêm Nhóm';
+  document.getElementById('grpSaveBtn').textContent = 'Thêm';
+  openOverlay('ovAddGroup');
+  setTimeout(() => document.getElementById('grpNameIn').focus(), 80);
+}
+
+function editGroup(id) {
+  const g = S.groups.find(x => x.id === id); if (!g) return;
+  document.getElementById('grpEditId').value = g.id;
+  document.getElementById('grpNameIn').value = g.name;
+  document.getElementById('grpModalTitle').textContent = '✏️ Sửa Nhóm';
+  document.getElementById('grpSaveBtn').textContent = 'Lưu';
+  openOverlay('ovAddGroup');
+  setTimeout(() => document.getElementById('grpNameIn').focus(), 80);
+}
+
+async function saveGroup() {
+  const name = document.getElementById('grpNameIn').value.trim();
+  if (!name) { toast('Vui lòng nhập tên nhóm', 'error'); return; }
+  const editId = document.getElementById('grpEditId').value;
+  const btn = document.getElementById('grpSaveBtn');
+  btn.disabled = true; btn.textContent = 'Đang lưu...';
+  try {
+    if (editId) {
+      await sbPatch('qc_groups', editId, { name });
+      toast(`Đã cập nhật nhóm "${name}"`, 'success');
+    } else {
+      const maxOrd = S.groups.reduce((m, g) => Math.max(m, g.sort_order || 0), 0);
+      await sbPost('qc_groups', { name, stage_id: S.curStage, sort_order: maxOrd + 1 });
+      toast(`Đã thêm nhóm "${name}"`, 'success');
+    }
+  } catch(e) { toast('Lỗi: ' + e.message, 'error'); }
+  btn.disabled = false;
+  closeOverlay('ovAddGroup');
+  await loadQC(S.curStage);
+}
+
+async function confirmDelGroup(id, name) {
+  if (!confirm(`Xóa nhóm "${name}"?\nCác điểm kiểm tra trong nhóm sẽ chuyển sang "Chưa phân nhóm".`)) return;
+  try {
+    await sbDelete('qc_groups', id);
+    toast(`Đã xóa nhóm "${name}"`, 'success');
+    await loadQC(S.curStage);
+  } catch(e) { toast('Lỗi: ' + e.message, 'error'); }
 }
 
 /* ── ANNOTATION EDITOR ──────────────────────────────────────── */
@@ -2622,8 +2690,8 @@ function openCardDetail(pt) {
   descEl.textContent = desc;
   descEl.style.display = desc ? '' : 'none';
 
-  _setCdmPanel('cdmGoWrap',   pt.go_image_url,   '✓ Đạt');
-  _setCdmPanel('cdmNogoWrap', pt.nogo_image_url, '✗ Không Đạt');
+  _setCdmPanel('cdmGoWrap',   pt.go_image_url,   '✓ ĐẠT (GO)');
+  _setCdmPanel('cdmNogoWrap', pt.nogo_image_url, '✗ KHÔNG ĐẠT (NO GO)');
 
   document.getElementById('ovCardDetail').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -2670,70 +2738,6 @@ document.addEventListener('keydown', e => {
     document.body.style.overflow = '';
   }
 });
-
-/* ── DRAG & DROP REORDER ────────────────────────────────────────── */
-let _dndSrc = null;
-
-function _attachCardDnd(card) {
-  card.addEventListener('dragstart', e => {
-    _dndSrc = card;
-    e.dataTransfer.effectAllowed = 'move';
-    setTimeout(() => card.classList.add('qc-dragging'), 0);
-  });
-
-  card.addEventListener('dragend', () => {
-    card.classList.remove('qc-dragging');
-    document.querySelectorAll('.qc-card.qc-drag-over').forEach(c => c.classList.remove('qc-drag-over'));
-    _dndSrc = null;
-  });
-
-  card.addEventListener('dragover', e => {
-    if (!_dndSrc || _dndSrc === card) return;
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    document.querySelectorAll('.qc-card.qc-drag-over').forEach(c => c.classList.remove('qc-drag-over'));
-    card.classList.add('qc-drag-over');
-  });
-
-  card.addEventListener('dragleave', e => {
-    if (!card.contains(e.relatedTarget)) card.classList.remove('qc-drag-over');
-  });
-
-  card.addEventListener('drop', e => {
-    e.preventDefault();
-    card.classList.remove('qc-drag-over');
-    if (_dndSrc && _dndSrc !== card) _doDndReorder(card);
-  });
-}
-
-async function _doDndReorder(targetCard) {
-  const grid = document.getElementById('qcGrid');
-  const allCards = [...grid.querySelectorAll('.qc-card')];
-  const fromIdx = allCards.indexOf(_dndSrc);
-  const toIdx   = allCards.indexOf(targetCard);
-  if (fromIdx < 0 || toIdx < 0 || fromIdx === toIdx) return;
-
-  // Cập nhật mảng S.qps
-  const [moved] = S.qps.splice(fromIdx, 1);
-  S.qps.splice(toIdx, 0, moved);
-
-  // Re-render → số thứ tự tự cập nhật
-  renderQC(S.qps);
-
-  // Lưu sort_order mới vào DB
-  try {
-    await Promise.all(S.qps.map((pt, i) =>
-      sbPatch('qc_points', pt.id, { sort_order: i + 1 })
-    ));
-    toast('Đã lưu thứ tự mới ✓', 'success');
-  } catch(e) {
-    toast('Lỗi lưu thứ tự: ' + e.message, 'error');
-  }
-}
-
-/* ── CHẶN ZOOM TRÌNH DUYỆT (iOS Safari bỏ qua user-scalable=no) ── */
-document.addEventListener('gesturestart',  e => e.preventDefault(), { passive: false });
-document.addEventListener('gesturechange', e => e.preventDefault(), { passive: false });
 
 /* ── START ──────────────────────────────────────────────────── */
 boot();

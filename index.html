@@ -53,6 +53,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_fpNOoHxKkhDryfHPeNZe8Q_cbbokJ4c';
 
 html {
   scrollbar-gutter: stable;
+  touch-action: manipulation;
 }
 
 body {
@@ -1680,7 +1681,7 @@ table.report-table {
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
         </div>
         <div class="home-card-title">Hướng Dẫn Kiểm Tra Chất Lượng</div>
-        <div class="home-card-desc">Tra cứu điểm kiểm tra GO / NO GO theo từng công đoạn sản xuất. Dành cho QC trên line.</div>
+        <div class="home-card-desc">Tra cứu điểm kiểm tra Đạt / Không Đạt theo từng công đoạn sản xuất. Dành cho QC trên line.</div>
         <div class="home-card-footer">
           <span class="home-card-badge live">Khả dụng</span>
           <svg class="home-card-arrow" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="width:20px;height:20px;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -3926,6 +3927,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatSend(); }
   });
 });
+
+/* Chặn zoom trình duyệt trên iOS Safari */
+document.addEventListener('gesturestart',  e => e.preventDefault(), { passive: false });
+document.addEventListener('gesturechange', e => e.preventDefault(), { passive: false });
 </script>
 
 </body>
