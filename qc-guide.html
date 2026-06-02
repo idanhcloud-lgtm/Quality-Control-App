@@ -1156,6 +1156,7 @@ body::after {
 }
 .ann-hint { font-size: 11.5px; color: var(--gray-400); flex: 1; line-height: 1.4; }
 
+
 /* ================================================================
    GROUP HEADERS
 ================================================================ */
@@ -1368,11 +1369,11 @@ body:not(.admin-mode) .group-hdr-actions {
     <div class="cdm-images">
       <div class="cdm-panel">
         <div class="zoom-wrap" id="cdmGoWrap"></div>
-        <div class="cdm-img-badge cdm-go-badge">✓ ĐẠT (GO)</div>
+        <div class="cdm-img-badge cdm-go-badge">✓ Đạt</div>
       </div>
       <div class="cdm-panel">
         <div class="zoom-wrap" id="cdmNogoWrap"></div>
-        <div class="cdm-img-badge cdm-nogo-badge">✗ KHÔNG ĐẠT (NO GO)</div>
+        <div class="cdm-img-badge cdm-nogo-badge">✗ Không Đạt</div>
       </div>
     </div>
     <div class="cdm-footer" id="cdmFooter">
@@ -1948,7 +1949,7 @@ function makeImgSlot(pt, type) {
   slot.className = 'img-slot';
 
   const url = type === 'go' ? pt.go_image_url : pt.nogo_image_url;
-  const label = type === 'go' ? '✓ ĐẠT (GO)' : '✗ KHÔNG ĐẠT (NO GO)';
+  const label = type === 'go' ? '✓ Đạt' : '✗ Không Đạt';
   const badgeClass = type === 'go' ? 'badge-go' : 'badge-nogo';
 
   if (url) {
@@ -2690,8 +2691,8 @@ function openCardDetail(pt) {
   descEl.textContent = desc;
   descEl.style.display = desc ? '' : 'none';
 
-  _setCdmPanel('cdmGoWrap',   pt.go_image_url,   '✓ ĐẠT (GO)');
-  _setCdmPanel('cdmNogoWrap', pt.nogo_image_url, '✗ KHÔNG ĐẠT (NO GO)');
+  _setCdmPanel('cdmGoWrap',   pt.go_image_url,   '✓ Đạt');
+  _setCdmPanel('cdmNogoWrap', pt.nogo_image_url, '✗ Không Đạt');
 
   document.getElementById('ovCardDetail').classList.add('open');
   document.body.style.overflow = 'hidden';
