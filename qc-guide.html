@@ -90,16 +90,15 @@ body::after {
   position: sticky;
   top: 0;
   z-index: 200;
-  background: rgba(255,255,255,0.80);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  border-bottom: 1px solid rgba(255,255,255,0.75);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 4px 20px rgba(0,0,0,0.06);
+  background: #fff;
+  border-bottom: 3px solid var(--g);
+  padding: 0;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
 }
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 10px 28px;
+  padding: 12px 32px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -107,24 +106,26 @@ body::after {
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
   text-decoration: none;
 }
 .header-logo {
-  height: 44px;
+  height: 46px;
   width: auto;
+  object-fit: contain;
 }
 .header-brand-text h1 {
   font-size: 15px;
   font-weight: 700;
   color: var(--gray-900);
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.2px;
 }
 .header-brand-text p {
   font-size: 11.5px;
-  color: var(--gray-400);
+  color: var(--gray-500);
   font-weight: 400;
+  margin-top: 1px;
 }
 .header-sep {
   width: 1px;
@@ -1188,18 +1189,28 @@ body::after {
    RESPONSIVE
 ================================================================ */
 @media (max-width: 768px) {
-  .main { padding: 18px 16px 60px; }
-  .header-inner { padding: 9px 16px; }
+  .main { padding: 14px 14px 60px; }
+  .header-inner { padding: 8px 16px; gap: 10px; }
+  .header-logo { height: 34px; }
+  .header-brand-text h1 { font-size: 13px; }
+  .header-brand-text p { display: none; }
   .header-page-title { display: none; }
   .header-sep { display: none; }
-  .qc-grid { grid-template-columns: 1fr; }
-  .pl-hero { flex-direction: column; align-items: flex-start; }
-  .modal { padding: 24px 18px; }
+  .btn-home { padding: 5px 11px; font-size: 11.5px; }
+  .btn-admin { padding: 5px 11px; font-size: 11.5px; }
+  .qc-grid { grid-template-columns: 1fr; gap: 10px; }
+  .pl-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .pl-bar::-webkit-scrollbar { display: none; }
+  .pl-tab { white-space: nowrap; flex-shrink: 0; font-size: 12px; }
+  .pl-hero { flex-direction: row; align-items: center; padding: 10px 14px; }
+  .pl-hero-name { font-size: 14px; }
+  .modal { padding: 20px 16px 32px; }
   .qc-card { border-radius: var(--r-lg); }
 }
 @media (max-width: 480px) {
-  .header-brand-text p { display: none; }
   .btn-home span { display: none; }
+  .header-logo { height: 28px; }
+  .header-brand-text h1 { font-size: 12px; }
 }
 </style>
 </head>
