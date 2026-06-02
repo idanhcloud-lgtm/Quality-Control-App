@@ -92,16 +92,16 @@ body::after {
   z-index: 200;
   background: #fff;
   border-bottom: 3px solid var(--g);
-  padding: 0;
+  /* padding nằm trên header trực tiếp để khớp index.html */
+  padding: 16px 32px;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
 }
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 12px 32px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 .header-brand {
   display: flex;
@@ -110,21 +110,22 @@ body::after {
   text-decoration: none;
 }
 .header-logo {
-  height: 46px;
+  /* Khớp với index.html: 48px */
+  height: 48px;
   width: auto;
   object-fit: contain;
 }
 .header-brand-text h1 {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--gray-900);
   line-height: 1.2;
   letter-spacing: -0.2px;
 }
 .header-brand-text p {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--gray-500);
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 1px;
 }
 .header-sep {
@@ -1188,16 +1189,11 @@ body::after {
 /* ================================================================
    RESPONSIVE
 ================================================================ */
+/* Mobile — khớp index.html (max-width: 640px) */
 @media (max-width: 768px) {
   .main { padding: 14px 14px 60px; }
-  .header-inner { padding: 8px 16px; gap: 10px; }
-  .header-logo { height: 34px; }
-  .header-brand-text h1 { font-size: 13px; }
-  .header-brand-text p { display: none; }
   .header-page-title { display: none; }
   .header-sep { display: none; }
-  .btn-home { padding: 5px 11px; font-size: 11.5px; }
-  .btn-admin { padding: 5px 11px; font-size: 11.5px; }
   .qc-grid { grid-template-columns: 1fr; gap: 10px; }
   .pl-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .pl-bar::-webkit-scrollbar { display: none; }
@@ -1207,10 +1203,17 @@ body::after {
   .modal { padding: 20px 16px 32px; }
   .qc-card { border-radius: var(--r-lg); }
 }
+/* Khớp chính xác index.html @640px: padding 8px 13px, logo 30px */
+@media (max-width: 640px) {
+  .header { padding: 8px 13px; }
+  .header-logo { height: 30px; }
+  .header-brand-text h1 { font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .header-brand-text p { display: none; }
+  .btn-home { padding: 5px 9px; font-size: 11px; }
+  .btn-admin { padding: 5px 9px; font-size: 11px; }
+}
 @media (max-width: 480px) {
   .btn-home span { display: none; }
-  .header-logo { height: 28px; }
-  .header-brand-text h1 { font-size: 12px; }
 }
 </style>
 </head>
